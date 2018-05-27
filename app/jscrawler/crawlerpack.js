@@ -96,8 +96,11 @@ function pushAcceptableLink(element,domain,url) {
                                 url: currentUrl
                             })
                             longTimeDBClient.insertOne({domain:currentDomain,url:currentUrl},()=>{
+                                //logger.debug(currentDomain+currentUrl+':入队成功')
                                 resolve(currentDomain+currentUrl+':入队成功')
                             })
+                        }else{
+                            resolve(currentDomain+currentUrl+':重复文档')
                         }
                     })
 
@@ -145,7 +148,7 @@ let buildTheDownLoadEvn = (wi,fivecounter)=>{
                                 Promise.all(tempLine)
                                     .then(function (data) {
                                         resolve(wi.getDURL())
-                                        logger.debug('现在数组的长度：',sitemapLinks.length)
+                                        logger.debug('检查promise：现在数组的长度：',sitemapLinks.length)
                                         //logger.debug('')
                                     })
                             }
